@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		html{
+			-moz-user-select: none; 
+        	-khtml-user-select: none; 
+        	-webkit-user-select: none; 
+        	-o-user-select: none; 
+		}
+		#cont{
+			position:relative;
+			border: solid black 2px;
+			width: 480px;
+			height:480px;
+		}
+		.flip3D{
+			position: relative;
+			font-family: monospace;
+			font-size: 60px;
+			color: #fff;
+			width:100px;
+			height:100px;
+			float:left;
+			margin: 10px;
+			text-align: center;
+		}
+		.flip3D > .front{
+			position: absolute;
+			background-color: red;
+			width:100px;
+			height:100px;
+			border-radius: 10px;
+			transform:perspective(100px)rotateY(0deg);
+			backface-visibility:hidden;
+			transition:transform .5s linear 0s;
+			z-index: 5;
+		}
+		.flip3D > .back{
+			position: absolute;
+			background-color: blue;
+			width:100px;
+			height:100px;
+			border-radius: 10px;
+			transform:perspective(100px)rotateY(180deg);
+			backface-visibility:hidden;
+			transition:transform .5s linear 0s;
+		}
+		
+		.frontFlip{
+			position: absolute;
+			background-color: red;
+			width:100px;
+			height:100px;
+			border-radius: 10px;
+			transform:perspective(600px)rotateY(-180deg);
+			backface-visibility:hidden;
+			transition:transform .5s linear 0s;
+		}
+		.backFlip{
+			position: absolute;
+			background-color: blue;
+			width:100px;
+			height:100px;
+			border-radius: 10px;
+			transform:perspective(600px)rotateY(0deg);
+			backface-visibility:hidden;
+			transition:transform .5s linear 0s;
+		}
+	</style>
+	<script type="text/javascript">
+	var previousLetter;
+	var currentLetter;
+	var previousCellNum;
+	var currentCellNum;
+	var tryCount = 0;
+	var matched = '';
+
+	function flip(cellNum){
+		tryCount ++;
+		console.log("tryCount = " + tryCount);
+		previousLetter = currentLetter;
+		previousCellNum = currentCellNum;
+		currentCellNum = cellNum;
+		currentLetter = document.getElementById("back"+cellNum).innerHTML;
+		//console.log("currentLetter = "+ currentLetter);
+		//console.log("previousLetter = "+ previousLetter);
+		document.getElementById('front'+cellNum).className = 'frontFlip';
+		document.getElementById('back'+cellNum).className = 'backFlip';
+	
+		setTimeout(function(){
+			if(tryCount == 2){
+				if(previousLetter!=currentLetter){
+					document.getElementById('front'+cellNum).className = 'front';
+					document.getElementById('back'+cellNum).className = 'back';
+
+					document.getElementById('front'+previousCellNum).className = 'front';
+					document.getElementById('back'+previousCellNum).className = 'back';
+					tryCount=0;
+				}
+				if(previousLetter == currentLetter){
+					//alert("match");
+					matched = matched + currentLetter;
+					console.log(matched);
+					tryCount = 0;
+				}
+			}
+		},700)
+
+	}
+	</script>
+</head>
+<body>
+	<div id="cont">
+	<div class="flip3D" onclick="flip(0)">
+		<div class="back" id="back0">C</div>
+		<div class="front" id="front0"></div>
+	</div>
+	<div class="flip3D" onclick="flip(1)">
+		<div class="back" id="back1">B</div>
+		<div class="front" id="front1"></div>
+	</div>
+	<div class="flip3D" onclick="flip(2)">
+		<div class="back" id="back2">H</div>
+		<div class="front" id="front2"></div>
+	</div>
+	<div class="flip3D" onclick="flip(3)">
+		<div class="back" id="back3">H</div>
+		<div class="front" id="front3"></div>
+	</div>
+	<div class="flip3D" onclick="flip(4)">
+		<div class="back" id="back4">A</div>
+		<div class="front" id="front4"></div>
+	</div>
+	<div class="flip3D" onclick="flip(5)">
+		<div class="back" id="back5">G</div>
+		<div class="front" id="front5"></div>
+	</div>
+	<div class="flip3D" onclick="flip(6)">
+		<div class="back" id="back6">D</div>
+		<div class="front" id="front6"></div>
+	</div>
+	<div class="flip3D" onclick="flip(7)">
+		<div class="back" id="back7">G</div>
+		<div class="front" id="front7"></div>
+	</div>
+	<div class="flip3D" onclick="flip(8)">
+		<div class="back" id="back8">A</div>
+		<div class="front" id="front8"></div>
+	</div>
+	<div class="flip3D" onclick="flip(9)">
+		<div class="back" id="back9">B</div>
+		<div class="front" id="front9"></div>
+	</div>
+	<div class="flip3D" onclick="flip(10)">
+		<div class="back" id="back10">D</div>
+		<div class="front" id="front10"></div>
+	</div>
+	<div class="flip3D" onclick="flip(11)">
+		<div class="back" id="back11" >E</div>
+		<div class="front" id="front11"></div>
+	</div>
+	<div class="flip3D" onclick="flip(12)">
+		<div class="back" id="back12">F</div>
+		<div class="front" id="front12"></div>
+	</div>
+	<div class="flip3D" onclick="flip(13)">
+		<div class="back" id="back13">F</div>
+		<div class="front" id="front13"></div>
+	</div>
+	<div class="flip3D" onclick="flip(14)">
+		<div class="back" id="back14">C</div>
+		<div class="front" id="front14"></div>
+	</div>
+	<div class="flip3D" onclick="flip(15)">
+		<div class="back" id="back15">E</div>
+		<div class="front" id="front15"></div>
+	</div>
+	</div>
+</body>
+</html>
+
